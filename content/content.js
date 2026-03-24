@@ -39,7 +39,7 @@
   function isJobsPage() {
     if (location.hostname !== 'www.linkedin.com') return false;
     const p = location.pathname;
-    return p.startsWith('/jobs/search') || p.startsWith('/jobs/collections');
+    return p.startsWith('/jobs/search') || p.startsWith('/jobs/collections') || p.startsWith('/jobs/search-results');
   }
 
   function isAppliedJobsPage() {
@@ -171,15 +171,15 @@
 
   function getJobCards() {
     const cards = new Set();
-    // Broad selectors covering both /jobs/search and /jobs/collections page types.
-    // li[data-occludable-job-id]     — used on both search and collections
-    // .job-card-container            — the inner card component on both
+    // Broad selectors covering /jobs/search, /jobs/search-results, and /jobs/collections.
+    // [data-occludable-job-id]           — used on all page types (li or div depending on layout)
+    // .job-card-container                — the inner card component on both
     // li.jobs-search-results__list-item  — search-specific list item class
-    // li.jobs-job-board-list__item   — collections-specific list item class
-    // li.scaffold-layout__list-item  — fallback used on some collection views
-    // a[href*="/jobs/view/"]         — last-resort: find any job link
+    // li.jobs-job-board-list__item       — collections-specific list item class
+    // li.scaffold-layout__list-item      — fallback used on some collection views
+    // a[href*="/jobs/view/"]             — last-resort: find any job link
     document.querySelectorAll(
-      'li[data-occludable-job-id], .job-card-container, li.jobs-search-results__list-item, li.jobs-job-board-list__item, li.scaffold-layout__list-item, a[href*="/jobs/view/"]'
+      '[data-occludable-job-id], .job-card-container, li.jobs-search-results__list-item, li.jobs-job-board-list__item, li.scaffold-layout__list-item, a[href*="/jobs/view/"]'
     ).forEach((candidate) => {
       if (!(candidate instanceof HTMLElement)) return;
       const target = getPreferredCardTarget(candidate);

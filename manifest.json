@@ -12,6 +12,7 @@
   "permissions": ["storage", "tabs", "scripting"],
   "host_permissions": [
     "https://www.linkedin.com/jobs/search*",
+    "https://www.linkedin.com/jobs/search-results*",
     "https://www.linkedin.com/jobs/*",
     "https://www.linkedin.com/my-items/*"
   ],
@@ -33,6 +34,7 @@
     {
       "matches": [
         "https://www.linkedin.com/jobs/search*",
+        "https://www.linkedin.com/jobs/search-results*",
         "https://www.linkedin.com/jobs/collections*",
         "https://www.linkedin.com/my-items/*"
       ],
