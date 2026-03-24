@@ -158,6 +158,7 @@
       node.closest('.jobs-search-results-list__list-item') ||
       node.closest('.job-card-container') ||
       node.closest('[data-job-id]') ||
+      node.closest('[data-component-type=LazyColumn]') ||
       node.closest('li') ||
       node
     );
@@ -167,22 +168,25 @@
     if (!(node instanceof HTMLElement)) return false;
     if (node.closest('.jobs-search__job-details, .jobs-details, .jobs-box')) return false;
     if (node.querySelector('a[href*="/jobs/view/"]')) return true;
+    if (node.querySelector('a[href*="currentJobId="]')) return true;
     const className = typeof node.className === 'string' ? node.className : '';
     return node.hasAttribute('data-occludable-job-id') || className.includes('job-card');
   }
 
   function getJobCards() {
     const cards = new Set();
-    // Broad selectors covering /jobs/search, /jobs/search-results, and /jobs/collections.
-    // [data-occludable-job-id]                    — used on all page types (li or div)
-    // .job-card-container                         — the inner card component on both
+    // Broad selectors covering /jobs/search, /jobs/search-results, /jobs/collections,
+    // and the QUALIFICATION_LANDING page (/jobs/search-results?origin=QUALIFICATION_LANDING).
+    // [data-occludable-job-id]                    — standard attribute on all regular job cards
+    // .job-card-container                         — inner card component (search + collections)
     // li.jobs-search-results__list-item           — search-specific list item class
     // li.jobs-search-results-list__list-item      — search-results variant (extra 'list' segment)
     // li.jobs-job-board-list__item                — collections-specific list item class
     // li.scaffold-layout__list-item               — fallback used on some collection views
+    // [data-component-type=LazyColumn]            — qualification landing page (one per job card)
     // a[href*="/jobs/view/"]                       — last-resort: find any job link
     document.querySelectorAll(
-      '[data-occludable-job-id], .job-card-container, li.jobs-search-results__list-item, li.jobs-search-results-list__list-item, li.jobs-job-board-list__item, li.scaffold-layout__list-item, a[href*="/jobs/view/"]'
+      '[data-occludable-job-id], .job-card-container, li.jobs-search-results__list-item, li.jobs-search-results-list__list-item, li.jobs-job-board-list__item, li.scaffold-layout__list-item, [data-component-type=LazyColumn], a[href*="/jobs/view/"]'
     ).forEach((candidate) => {
       if (!(candidate instanceof HTMLElement)) return;
       const target = getPreferredCardTarget(candidate);
@@ -198,6 +202,14 @@
     if (anchor && anchor.href) {
       const match = anchor.href.match(/\/jobs\/view\/(\d+)/);
       if (match) return match[1];
+    }
+    // Fallback for qualification landing page: job ID is in currentJobId query param
+    const navAnchor = card.querySelector('a[href*="currentJobId="]');
+    if (navAnchor && navAnchor.href) {
+      try {
+        const id = new URL(navAnchor.href).searchParams.get('currentJobId');
+        if (id) return id;
+      } catch (_) {}
     }
     return null;
   }
