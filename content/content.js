@@ -229,7 +229,9 @@
     return /we won(?:'|')t show you this job again|dismissed/.test(text);
   }
   function hasActivelyReviewingLabel(text) {
-    return text.includes('actively reviewing');
+    // LinkedIn renders this badge with several phrasings depending on locale/version:
+    // "Actively reviewing applicants", "Actively reviewing", "actively reviewing"
+    return text.includes('actively reviewing') || text.includes('actively hiring');
   }
 
   function matchesBlockedKeyword(text) {
@@ -266,8 +268,14 @@
 
     // Show-only filters — evaluated only on cards that passed all hide filters above.
     // A card is hidden when an enabled show-only criterion is not met.
-    if (reasons.length === 0 && settings.showOnlyActivelyReviewing && !hasActivelyReviewingLabel(text)) {
-      reasons.push('showOnly');
+    // Use card.textContent directly (not the innerText clone) to capture text in
+    // CSS-hidden elements such as LinkedIn's badge spans, and check multiple
+    // phrasings LinkedIn uses for this status.
+    if (reasons.length === 0 && settings.showOnlyActivelyReviewing) {
+      const rawText = normalizeText(card.textContent || '');
+      if (!hasActivelyReviewingLabel(rawText)) {
+        reasons.push('showOnly');
+      }
     }
 
     return { jobId, reasons, text };
