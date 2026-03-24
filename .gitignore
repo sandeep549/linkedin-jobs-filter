@@ -1,0 +1,12 @@
+# Chrome test profile (created during local testing)
+.chrome-test-profile/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Icon generation script (not needed by end users)
+icons/gen_icons.py
+
+# Store listing drafts (not part of the extension itself)
+STORE_LISTING.md

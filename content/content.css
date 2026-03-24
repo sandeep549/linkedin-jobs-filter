@@ -1,0 +1,98 @@
+.hj-filter-target {
+  position: relative;
+}
+
+.hj-hidden-job {
+  display: none !important;
+}
+
+.hj-dismiss-button,
+.hj-applied-button {
+  position: absolute;
+  top: 8px;
+  z-index: 5;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 6px 10px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+}
+
+.hj-dismiss-button {
+  right: 8px;
+  border: 1px solid #9db3c8;
+  background: #ffffff;
+  color: #0a66c2;
+}
+
+.hj-applied-button {
+  right: 88px;
+  border: 1px solid #86efac;
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+.hj-dismiss-button:hover,
+.hj-dismiss-button:focus-visible {
+  background: #eff6ff;
+  outline: none;
+}
+
+.hj-applied-button:hover,
+.hj-applied-button:focus-visible {
+  background: #dcfce7;
+  outline: none;
+}
+
+.hj-hidden-reason {
+  display: none;
+}
+
+/* Applied job highlight (when Hide Applied is unchecked) */
+.hj-applied-highlight {
+  background: linear-gradient(90deg, #f0fdf4 0%, transparent 60%) !important;
+  border-left: 3px solid #16a34a !important;
+}
+
+.hj-applied-highlight::after {
+  content: '\2713 Applied';
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #16a34a;
+  background: #dcfce7;
+  border-radius: 999px;
+  padding: 2px 8px;
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* Refresh pulse — brief inset outline flash on visible cards when Refresh is clicked */
+@keyframes hj-refresh-pulse {
+  0%   { box-shadow: inset 0 0 0 2px rgba(10, 102, 194, 0.35); }
+  100% { box-shadow: inset 0 0 0 0px rgba(10, 102, 194, 0); }
+}
+
+.hj-refresh-pulse {
+  animation: hj-refresh-pulse 0.7s ease-out;
+}
+
+/* Detail pane applied banner */
+#hj-applied-banner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f0fdf4;
+  border-left: 4px solid #16a34a;
+  color: #15803d;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: sans-serif;
+  padding: 8px 14px;
+  margin: 8px 0;
+  border-radius: 0 4px 4px 0;
+}

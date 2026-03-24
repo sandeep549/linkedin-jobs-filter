@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Applied Jobs — LinkedIn Jobs Filter</title>
+    <link rel="stylesheet" href="applied-jobs.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="page-header">
+        <div>
+          <h1>Applied Jobs</h1>
+          <p class="subtitle">Jobs tracked by LinkedIn Jobs Filter. <span id="count-label"></span></p>
+        </div>
+        <div class="header-actions">
+          <button id="clear-all" class="danger-button" type="button">Clear All</button>
+        </div>
+      </header>
+
+      <div id="empty-state" class="empty-state hidden">
+        <p>No applied jobs tracked yet.</p>
+        <p class="muted">Jobs are tracked automatically when LinkedIn shows the "Applied" label, when you click "Mark Applied" on a card, or when you visit the <a href="https://www.linkedin.com/my-items/saved-jobs/?cardType=APPLIED" target="_blank">LinkedIn Applied Jobs page</a>.</p>
+      </div>
+
+      <table id="jobs-table" class="jobs-table hidden">
+        <thead>
+          <tr>
+            <th>Job Title</th>
+            <th>Company</th>
+            <th>Date Tracked</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="jobs-tbody"></tbody>
+      </table>
+    </div>
+    <script src="applied-jobs.js"></script>
+  </body>
+</html>
