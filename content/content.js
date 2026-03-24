@@ -151,9 +151,11 @@
 
   function getPreferredCardTarget(node) {
     return (
-      node.closest('li[data-occludable-job-id]') ||
+      node.closest('[data-occludable-job-id]') ||
       node.closest('li.jobs-search-results__list-item') ||
+      node.closest('li.jobs-search-results-list__list-item') ||
       node.closest('.jobs-search-results__list-item') ||
+      node.closest('.jobs-search-results-list__list-item') ||
       node.closest('.job-card-container') ||
       node.closest('[data-job-id]') ||
       node.closest('li') ||
@@ -172,14 +174,15 @@
   function getJobCards() {
     const cards = new Set();
     // Broad selectors covering /jobs/search, /jobs/search-results, and /jobs/collections.
-    // [data-occludable-job-id]           — used on all page types (li or div depending on layout)
-    // .job-card-container                — the inner card component on both
-    // li.jobs-search-results__list-item  — search-specific list item class
-    // li.jobs-job-board-list__item       — collections-specific list item class
-    // li.scaffold-layout__list-item      — fallback used on some collection views
-    // a[href*="/jobs/view/"]             — last-resort: find any job link
+    // [data-occludable-job-id]                    — used on all page types (li or div)
+    // .job-card-container                         — the inner card component on both
+    // li.jobs-search-results__list-item           — search-specific list item class
+    // li.jobs-search-results-list__list-item      — search-results variant (extra 'list' segment)
+    // li.jobs-job-board-list__item                — collections-specific list item class
+    // li.scaffold-layout__list-item               — fallback used on some collection views
+    // a[href*="/jobs/view/"]                       — last-resort: find any job link
     document.querySelectorAll(
-      '[data-occludable-job-id], .job-card-container, li.jobs-search-results__list-item, li.jobs-job-board-list__item, li.scaffold-layout__list-item, a[href*="/jobs/view/"]'
+      '[data-occludable-job-id], .job-card-container, li.jobs-search-results__list-item, li.jobs-search-results-list__list-item, li.jobs-job-board-list__item, li.scaffold-layout__list-item, a[href*="/jobs/view/"]'
     ).forEach((candidate) => {
       if (!(candidate instanceof HTMLElement)) return;
       const target = getPreferredCardTarget(candidate);
