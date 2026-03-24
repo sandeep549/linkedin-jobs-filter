@@ -1,0 +1,132 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  color: #1e293b;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.header-actions {
+  flex-shrink: 0;
+}
+
+.hidden { display: none !important; }
+
+.muted { color: #94a3b8; }
+
+/* Table */
+.jobs-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+}
+
+.jobs-table thead tr {
+  background: #f1f5f9;
+}
+
+.jobs-table th {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 10px 14px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.jobs-table td {
+  padding: 11px 14px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+  color: #334155;
+}
+
+.jobs-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.jobs-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.jobs-table a {
+  color: #0a66c2;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.jobs-table a:hover { text-decoration: underline; }
+
+/* Buttons */
+.danger-button {
+  border: 1px solid #fca5a5;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #dc2626;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 14px;
+  cursor: pointer;
+}
+
+.danger-button:hover { background: #fef2f2; }
+.danger-button:disabled { opacity: 0.4; cursor: default; }
+
+.danger-button-sm {
+  border: 1px solid #fca5a5;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #dc2626;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+.danger-button-sm:hover { background: #fef2f2; }
+
+/* Empty state */
+.empty-state {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
+  padding: 40px 24px;
+  text-align: center;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.empty-state a { color: #0a66c2; }

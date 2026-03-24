@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LinkedIn Jobs Filter</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup">
+      <header class="popup__header">
+        <div>
+          <h1>LinkedIn Jobs Filter</h1>
+          <p>Local filters for LinkedIn Jobs search.</p>
+        </div>
+        <button id="open-help" class="link-button" type="button">Help &amp; Support</button>
+      </header>
+
+      <section class="card" aria-labelledby="status-heading">
+        <div class="section-title-row">
+          <h2 id="status-heading">Current page</h2>
+          <button id="refresh-status" class="secondary-button" type="button" title="Re-run all filters on the current job cards and update the counts below. Useful after LinkedIn loads more results.">Re-apply Filters</button>
+        </div>
+        <p id="status-message" class="muted">Open LinkedIn Jobs search to use the filters.</p>
+        <p id="last-refreshed" class="small" style="margin-top:6px;color:#64748b;">Filters run automatically as you scroll. Click <strong>Re-apply Filters</strong> to force a re-run on all visible cards.</p>
+        <p id="reload-hint" class="muted small" style="display:none;margin-top:4px;">
+          <button id="reload-tab-btn" class="link-button" type="button" style="color:#c0392b;">↺ Reload LinkedIn tab</button> — extension was updated, content script needs a fresh load.
+        </p>
+        <dl class="stats-grid" id="stats-grid">
+          <div>
+            <dt>Hidden</dt>
+            <dd id="stat-hidden">0</dd>
+          </div>
+          <div>
+            <dt>Scanned</dt>
+            <dd id="stat-scanned">0</dd>
+          </div>
+          <div>
+            <dt>Visible</dt>
+            <dd id="stat-visible">0</dd>
+          </div>
+          <div>
+            <dt>Hours</dt>
+            <dd id="stat-hours">0</dd>
+          </div>
+        </dl>
+        <div class="reason-list">
+          <span>Applied: <strong id="reason-applied">0</strong></span>
+          <span>Dismissed: <strong id="reason-dismissed">0</strong></span>
+          <span>Promoted: <strong id="reason-promoted">0</strong></span>
+          <span>Viewed: <strong id="reason-viewed">0</strong></span>
+          <span>Keywords: <strong id="reason-keywords">0</strong></span>
+          <span>Applied tracked: <strong id="reason-applied-tracked">0</strong></span>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="filters-heading">
+        <h2 id="filters-heading">Filters</h2>
+        <label class="toggle-row"><input id="hide-applied" type="checkbox" /> Hide Applied Jobs</label>
+        <label class="toggle-row"><input id="hide-dismissed" type="checkbox" /> Hide Dismissed Jobs</label>
+        <label class="toggle-row"><input id="hide-promoted" type="checkbox" /> Hide Promoted Jobs</label>
+        <label class="toggle-row"><input id="hide-viewed" type="checkbox" /> Hide Viewed Jobs</label>
+        <label class="toggle-row"><input id="hide-keywords" type="checkbox" /> Hide Jobs by Keywords</label>
+        <div class="hours-row">
+          <label class="toggle-row"><input id="hide-old-jobs" type="checkbox" /> Hide jobs older than</label>
+          <input id="hours-threshold" type="number" min="1" step="1" />
+          <span>hours</span>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="keywords-heading">
+        <div class="section-title-row">
+          <h2 id="keywords-heading">Keyword Scanner</h2>
+          <button id="scan-keywords" class="secondary-button" type="button">Scan page</button>
+        </div>
+        <div class="keyword-add-row">
+          <input id="keyword-input" type="text" placeholder="Add blocked keyword and press Enter" />
+          <button id="add-keyword" type="button">Add</button>
+        </div>
+        <div>
+          <p class="muted small">Blocked keywords</p>
+          <div id="keyword-list" class="chip-list"></div>
+        </div>
+        <div>
+          <p class="muted small">Suggestions from this page</p>
+          <div id="keyword-suggestions" class="chip-list"></div>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="storage-heading">
+        <h2 id="storage-heading">Local data</h2>
+        <div class="action-grid">
+          <button id="view-applied-jobs" class="secondary-button" type="button">View Applied Jobs (<span id="applied-count">0</span>)</button>
+          <button id="sync-applied-jobs" class="secondary-button" type="button">Sync Applied Jobs</button>
+          <button id="clear-viewed" class="secondary-button" type="button">Clear viewed history</button>
+          <button id="clear-dismissed" class="secondary-button" type="button">Clear dismissed jobs</button>
+          <button id="clear-applied" class="secondary-button" type="button">Clear applied history</button>
+          <button id="reset-settings" class="danger-button" type="button">Reset all settings</button>
+        </div>
+        <p class="muted small">"Sync Applied Jobs" opens your LinkedIn Applied Jobs page so the extension can read all jobs you have applied to.</p>
+        <p class="muted small">Everything is stored locally in Chrome using extension storage.</p>
+      </section>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>

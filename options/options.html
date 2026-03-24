@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LinkedIn Jobs Filter Help</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header>
+        <h1>LinkedIn Jobs Filter</h1>
+        <p>Help, support, and local testing notes for the unpacked extension.</p>
+      </header>
+
+      <section>
+        <h2>What this extension does</h2>
+        <ul>
+          <li>Hides LinkedIn job cards marked as Applied, Promoted, Viewed, or Dismissed.</li>
+          <li>Lets you dismiss jobs locally with a Dismiss button added to each card.</li>
+          <li>Blocks jobs containing your saved blocked keywords.</li>
+          <li>Can hide jobs older than a chosen number of hours.</li>
+          <li>Can scan the LinkedIn details pane for each currently loaded job and show only cards whose details match your include keywords.</li>
+          <li>Stores settings locally in Chrome using <code>chrome.storage.local</code>.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>How to load it locally</h2>
+        <ol>
+          <li>Open <code>chrome://extensions</code>.</li>
+          <li>Enable <strong>Developer mode</strong>.</li>
+          <li>Click <strong>Load unpacked</strong>.</li>
+          <li>Select the extension folder that contains <code>manifest.json</code>.</li>
+          <li>Open <code>https://www.linkedin.com/jobs/search</code>.</li>
+          <li>Pin the extension and use the popup to toggle filters.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>How detail-keyword scanning works</h2>
+        <ol>
+          <li>Add one or more <strong>include keywords</strong> in the popup.</li>
+          <li>Turn on <strong>Show only jobs whose details match include keywords</strong>.</li>
+          <li>Click <strong>Scan current results</strong>.</li>
+          <li>The extension selects each currently loaded LinkedIn card, waits for the right-side details pane to fully switch to that job, caches the result, and hides only confirmed non-matching jobs after results are available.</li>
+        </ol>
+        <p>Cards that have not been scanned yet stay visible until a scan result exists. Failed scans also stay visible so they are not mistaken for true non-matches.</p>
+      </section>
+
+      <section>
+        <h2>Keyword precedence</h2>
+        <ul>
+          <li>Blocked keywords hide matching cards first.</li>
+          <li>The details include-keyword filter then keeps only jobs whose scanned details match your include keywords.</li>
+          <li>Pending or failed detail scans stay visible until you run the scan again successfully.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Testing checklist</h2>
+        <ul>
+          <li>Confirm the popup opens and settings persist after reloading the extension.</li>
+          <li>Click a job card, then enable <strong>Hide Viewed Jobs</strong> to confirm local viewed tracking works.</li>
+          <li>Use the injected <strong>Dismiss</strong> button and confirm the card disappears when Hide Dismissed Jobs is enabled.</li>
+          <li>Enable <strong>Hide Promoted Jobs</strong> and verify cards containing the Promoted label are removed.</li>
+          <li>Add a blocked keyword such as <code>intern</code> and confirm matching cards disappear.</li>
+          <li>Add include keywords, run <strong>Scan current results</strong>, and confirm only jobs whose details contain those keywords remain visible.</li>
+          <li>Enable the hours filter and confirm older postings are removed when LinkedIn shows age labels such as <code>3 hours ago</code> or <code>2 days ago</code>.</li>
+          <li>Scroll the results list to verify newly loaded cards stay visible until they are scanned.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Known limitations</h2>
+        <ul>
+          <li>This version targets <code>linkedin.com/jobs/search</code> only.</li>
+          <li>Some filters depend on LinkedIn exposing visible labels in the job card text.</li>
+          <li>The detail-keyword filter depends on LinkedIn rendering the right-side details pane correctly for the selected card.</li>
+          <li>If LinkedIn changes its DOM structure or labels, selectors may need updates.</li>
+          <li>The hours filter only applies when the posting age appears in the card text.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Privacy</h2>
+        <p>No external service is used. Settings, scan cache, viewed history, and dismissed jobs stay local to your browser profile.</p>
+      </section>
+    </main>
+  </body>
+</html>
