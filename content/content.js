@@ -8,7 +8,8 @@
     hideOldJobs: false,
     hoursThreshold: 24,
     blockedKeywords: [],
-    showOnlyActivelyReviewing: false
+    showOnlyActivelyReviewing: false,
+    showOnlyEarlyApplicant: false
   };
 
   const HISTORY_LIMIT = 2000;
@@ -233,6 +234,9 @@
     // "Actively reviewing applicants", "Actively reviewing", "actively reviewing"
     return text.includes('actively reviewing') || text.includes('actively hiring');
   }
+  function hasEarlyApplicantLabel(text) {
+    return text.includes('early applicant');
+  }
 
   function matchesBlockedKeyword(text) {
     if (!settings.hideKeywords || settings.blockedKeywords.length === 0) return false;
@@ -267,14 +271,16 @@
     }
 
     // Show-only filters — evaluated only on cards that passed all hide filters above.
-    // A card is hidden when an enabled show-only criterion is not met.
-    // Use card.textContent directly (not the innerText clone) to capture text in
-    // CSS-hidden elements such as LinkedIn's badge spans, and check multiple
-    // phrasings LinkedIn uses for this status.
-    if (reasons.length === 0 && settings.showOnlyActivelyReviewing) {
-      const rawText = normalizeText(card.textContent || '');
-      if (!hasActivelyReviewingLabel(rawText)) {
-        reasons.push('showOnly');
+    // OR semantics: a card is visible if it matches ANY enabled show-only criterion.
+    // Use card.textContent directly to capture text in CSS-hidden badge spans.
+    if (reasons.length === 0) {
+      const anyShowOnlyActive = settings.showOnlyActivelyReviewing || settings.showOnlyEarlyApplicant;
+      if (anyShowOnlyActive) {
+        const rawText = normalizeText(card.textContent || '');
+        const matchesAny =
+          (settings.showOnlyActivelyReviewing && hasActivelyReviewingLabel(rawText)) ||
+          (settings.showOnlyEarlyApplicant    && hasEarlyApplicantLabel(rawText));
+        if (!matchesAny) reasons.push('showOnly');
       }
     }
 

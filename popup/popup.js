@@ -7,7 +7,8 @@ const DEFAULT_SETTINGS = {
   hideOldJobs: false,
   hoursThreshold: 24,
   blockedKeywords: [],
-  showOnlyActivelyReviewing: false
+  showOnlyActivelyReviewing: false,
+  showOnlyEarlyApplicant: false
 };
 
 const state = {
@@ -40,6 +41,7 @@ const elements = {
   hideOldJobs: document.getElementById('hide-old-jobs'),
   hoursThreshold: document.getElementById('hours-threshold'),
   showOnlyActivelyReviewing: document.getElementById('show-only-actively-reviewing'),
+  showOnlyEarlyApplicant: document.getElementById('show-only-early-applicant'),
   keywordInput: document.getElementById('keyword-input'),
   keywordList: document.getElementById('keyword-list'),
   keywordSuggestions: document.getElementById('keyword-suggestions'),
@@ -118,6 +120,7 @@ function renderSettings() {
   elements.hideOldJobs.checked = state.settings.hideOldJobs;
   elements.hoursThreshold.value = String(state.settings.hoursThreshold || 24);
   elements.showOnlyActivelyReviewing.checked = state.settings.showOnlyActivelyReviewing;
+  elements.showOnlyEarlyApplicant.checked = state.settings.showOnlyEarlyApplicant;
   renderChipList(elements.keywordList, state.settings.blockedKeywords, removeBlockedKeyword, 'No blocked keywords yet.');
 }
 
@@ -407,6 +410,7 @@ function bindEvents() {
     void updateSettings({ hoursThreshold: v });
   });
   elements.showOnlyActivelyReviewing.addEventListener('change', () => void updateSettings({ showOnlyActivelyReviewing: elements.showOnlyActivelyReviewing.checked }));
+  elements.showOnlyEarlyApplicant.addEventListener('change', () => void updateSettings({ showOnlyEarlyApplicant: elements.showOnlyEarlyApplicant.checked }));
 }
 
 async function initialize() {

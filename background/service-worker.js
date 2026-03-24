@@ -8,6 +8,7 @@ const DEFAULT_SETTINGS = {
   hoursThreshold: 24,
   blockedKeywords: [],
   showOnlyActivelyReviewing: false,
+  showOnlyEarlyApplicant: false,
   viewedJobs: {},
   dismissedJobs: {},
   appliedJobs: {}
