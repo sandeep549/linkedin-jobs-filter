@@ -51,11 +51,12 @@
           <span>Viewed: <strong id="reason-viewed">0</strong></span>
           <span>Keywords: <strong id="reason-keywords">0</strong></span>
           <span>Applied tracked: <strong id="reason-applied-tracked">0</strong></span>
+          <span>Show Only: <strong id="reason-show-only">0</strong></span>
         </div>
       </section>
 
       <section class="card" aria-labelledby="filters-heading">
-        <h2 id="filters-heading">Filters</h2>
+        <h2 id="filters-heading">Hide</h2>
         <label class="toggle-row"><input id="hide-applied" type="checkbox" /> Hide Applied Jobs</label>
         <label class="toggle-row"><input id="hide-dismissed" type="checkbox" /> Hide Dismissed Jobs</label>
         <label class="toggle-row"><input id="hide-promoted" type="checkbox" /> Hide Promoted Jobs</label>
@@ -66,6 +67,11 @@
           <input id="hours-threshold" type="number" min="1" step="1" />
           <span>hours</span>
         </div>
+      </section>
+
+      <section class="card" aria-labelledby="show-only-heading">
+        <h2 id="show-only-heading">Show Only</h2>
+        <label class="toggle-row"><input id="show-only-actively-reviewing" type="checkbox" /> Actively reviewing applicants</label>
       </section>
 
       <section class="card" aria-labelledby="keywords-heading">

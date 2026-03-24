@@ -6,7 +6,8 @@ const DEFAULT_SETTINGS = {
   hideKeywords: true,
   hideOldJobs: false,
   hoursThreshold: 24,
-  blockedKeywords: []
+  blockedKeywords: [],
+  showOnlyActivelyReviewing: false
 };
 
 const state = {
@@ -30,6 +31,7 @@ const elements = {
   reasonViewed: document.getElementById('reason-viewed'),
   reasonKeywords: document.getElementById('reason-keywords'),
   reasonAppliedTracked: document.getElementById('reason-applied-tracked'),
+  reasonShowOnly: document.getElementById('reason-show-only'),
   hideApplied: document.getElementById('hide-applied'),
   hideDismissed: document.getElementById('hide-dismissed'),
   hidePromoted: document.getElementById('hide-promoted'),
@@ -37,6 +39,7 @@ const elements = {
   hideKeywords: document.getElementById('hide-keywords'),
   hideOldJobs: document.getElementById('hide-old-jobs'),
   hoursThreshold: document.getElementById('hours-threshold'),
+  showOnlyActivelyReviewing: document.getElementById('show-only-actively-reviewing'),
   keywordInput: document.getElementById('keyword-input'),
   keywordList: document.getElementById('keyword-list'),
   keywordSuggestions: document.getElementById('keyword-suggestions'),
@@ -114,6 +117,7 @@ function renderSettings() {
   elements.hideKeywords.checked = state.settings.hideKeywords;
   elements.hideOldJobs.checked = state.settings.hideOldJobs;
   elements.hoursThreshold.value = String(state.settings.hoursThreshold || 24);
+  elements.showOnlyActivelyReviewing.checked = state.settings.showOnlyActivelyReviewing;
   renderChipList(elements.keywordList, state.settings.blockedKeywords, removeBlockedKeyword, 'No blocked keywords yet.');
 }
 
@@ -157,6 +161,7 @@ function renderStatus() {
   elements.reasonViewed.textContent = String(counts.viewed || 0);
   elements.reasonKeywords.textContent = String(counts.keywords || 0);
   elements.reasonAppliedTracked.textContent = String(counts.appliedTracked || 0);
+  elements.reasonShowOnly.textContent = String(counts.showOnly || 0);
   if (elements.appliedCount) elements.appliedCount.textContent = String(counts.appliedTracked || 0);
 }
 
@@ -401,6 +406,7 @@ function bindEvents() {
     elements.hoursThreshold.value = String(v);
     void updateSettings({ hoursThreshold: v });
   });
+  elements.showOnlyActivelyReviewing.addEventListener('change', () => void updateSettings({ showOnlyActivelyReviewing: elements.showOnlyActivelyReviewing.checked }));
 }
 
 async function initialize() {

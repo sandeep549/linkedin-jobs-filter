@@ -7,6 +7,7 @@ const DEFAULT_SETTINGS = {
   hideOldJobs: false,
   hoursThreshold: 24,
   blockedKeywords: [],
+  showOnlyActivelyReviewing: false,
   viewedJobs: {},
   dismissedJobs: {},
   appliedJobs: {}

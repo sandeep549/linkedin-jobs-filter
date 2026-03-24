@@ -7,7 +7,8 @@
     hideKeywords: true,
     hideOldJobs: false,
     hoursThreshold: 24,
-    blockedKeywords: []
+    blockedKeywords: [],
+    showOnlyActivelyReviewing: false
   };
 
   const HISTORY_LIMIT = 2000;
@@ -53,7 +54,7 @@
   function emptyCounts() {
     return {
       totalHidden: 0, applied: 0, dismissed: 0, promoted: 0, viewed: 0,
-      keywords: 0, hours: 0, scannedCards: 0, visibleCards: 0,
+      keywords: 0, hours: 0, showOnly: 0, scannedCards: 0, visibleCards: 0,
       appliedTracked: 0, lastUpdatedAt: null
     };
   }
@@ -227,6 +228,9 @@
   function hasDismissedLabel(text) {
     return /we won(?:'|')t show you this job again|dismissed/.test(text);
   }
+  function hasActivelyReviewingLabel(text) {
+    return text.includes('actively reviewing');
+  }
 
   function matchesBlockedKeyword(text) {
     if (!settings.hideKeywords || settings.blockedKeywords.length === 0) return false;
@@ -258,6 +262,12 @@
     if (settings.hideOldJobs) {
       const ageHours = extractAgeHours(card);
       if (ageHours !== null && ageHours > Number(settings.hoursThreshold || 0)) reasons.push('hours');
+    }
+
+    // Show-only filters — evaluated only on cards that passed all hide filters above.
+    // A card is hidden when an enabled show-only criterion is not met.
+    if (reasons.length === 0 && settings.showOnlyActivelyReviewing && !hasActivelyReviewingLabel(text)) {
+      reasons.push('showOnly');
     }
 
     return { jobId, reasons, text };
