@@ -6,8 +6,7 @@
   display: none !important;
 }
 
-.hj-dismiss-button,
-.hj-applied-button {
+.hj-dismiss-button {
   position: absolute;
   top: 8px;
   z-index: 5;
@@ -18,31 +17,15 @@
   padding: 6px 10px;
   cursor: pointer;
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
-}
-
-.hj-dismiss-button {
   right: 8px;
   border: 1px solid #9db3c8;
   background: #ffffff;
   color: #0a66c2;
 }
 
-.hj-applied-button {
-  right: 88px;
-  border: 1px solid #86efac;
-  background: #f0fdf4;
-  color: #15803d;
-}
-
 .hj-dismiss-button:hover,
 .hj-dismiss-button:focus-visible {
   background: #eff6ff;
-  outline: none;
-}
-
-.hj-applied-button:hover,
-.hj-applied-button:focus-visible {
-  background: #dcfce7;
   outline: none;
 }
 

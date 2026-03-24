@@ -300,22 +300,7 @@
       void persistHistory('dismissedJobs', dismissedJobs).then(() => debounceApply());
     });
 
-    const appliedBtn = document.createElement('button');
-    appliedBtn.type = 'button';
-    appliedBtn.className = 'hj-applied-button';
-    appliedBtn.textContent = 'Mark Applied';
-    appliedBtn.title = 'Mark as applied (for external apply jobs)';
-    appliedBtn.addEventListener('click', (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      const jobId = getJobId(card);
-      if (!jobId) return;
-      appliedJobs[jobId] = makeAppliedEntry(card, jobId);
-      void persistHistory('appliedJobs', appliedJobs).then(() => debounceApply());
-    });
-
     card.appendChild(dismissBtn);
-    card.appendChild(appliedBtn);
   }
 
   async function sendCountsToBackground() {
@@ -575,7 +560,7 @@
     document.addEventListener('click', (event) => {
       const target = event.target;
       if (!(target instanceof HTMLElement)) return;
-      if (target.closest('.hj-dismiss-button') || target.closest('.hj-applied-button')) return;
+      if (target.closest('.hj-dismiss-button')) return;
       void markViewedFromEventTarget(target);
     }, true);
   }
